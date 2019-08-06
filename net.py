@@ -29,7 +29,7 @@ class NueralNet:
         activations = list()
         activations.append( inputActivations )
         for i in range(1, self.totalLayers): #start at first hidden layer
-            activations[i] = sigmoid(np.dot(activations[i-1], self.weights[i-1]))
+            activations.append (sigmoid(np.dot(activations[i-1], self.weights[i-1])) )
 
 ############# TESTING #########
 
