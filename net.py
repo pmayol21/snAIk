@@ -3,7 +3,7 @@ import numpy as np
 def sigmoid(x):
     return 1 / (1 + np.e ** -x)
 
-class NueralNet:
+class NeuralNet:
     def __init__(self, topology):
 
         # topology[i] is an integer corresponding to the number of nodes
@@ -33,7 +33,7 @@ class NueralNet:
 ############# TESTING #########
 
 top = [4, 3, 2] #layer 0 (input) has 4 nodes, layers 1 (a hidden) has 3 nodes
-network = NueralNet(top)
+network = NeuralNet(top)
 network.randomizeWeights()
 
 input = np.array([1, 0, 1, 1])
