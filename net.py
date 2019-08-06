@@ -5,6 +5,9 @@ def sigmoid(x):
 
 class NueralNet:
     def __init__(self, topology):
+
+        # topology[i] is an integer corresponding to the number of nodes
+        # in layer i of the network
         self.topology = topology
 
         self.numInputNodes = topology[0]
