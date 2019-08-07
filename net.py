@@ -21,7 +21,7 @@ class NeuralNet:
         for i in range(0, self.totalLayers - 1):
             self.weights.append(np.random.rand(self.topology[i + 1], self.topology[i]) ) #rows in num of nodes in next layer, columns in num rows in previous4
 
-        print("W0:", self.weights[0])
+        # print("W0:", self.weights[0])
 
     #does not implement bias atm. Param is column vector of input activations
     def feedForward(self, inputActivations):
@@ -29,6 +29,19 @@ class NeuralNet:
         activations.append( inputActivations )
         for i in range(1, self.totalLayers): #start at first hidden layer
             activations.append (sigmoid(np.dot(self.weights[i - 1], activations[i - 1])) )
+
+    #put all weights into a single array ([layer1 layer2 layer3])
+    def flattenWeights(self):
+        flattenWeights = []
+        counter = 1
+        for i in self.weights:
+            for j in i:
+                if np.array_equal(np.array(flattenWeights), np.array([])):
+                    flattenWeights = np.ravel(j)
+                else:
+                    flattenWeights = np.concatenate((flattenWeights,np.ravel(j)))
+        return flattenWeights
+
 
 ############# TESTING #########
 
@@ -38,5 +51,4 @@ network.randomizeWeights()
 
 input = np.array([1, 0, 1, 1])
 input = input.transpose()
-
 network.feedForward(input)
