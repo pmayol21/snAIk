@@ -4,28 +4,28 @@ Platformer Game
 import arcade
 
 # Constants
-SCREEN_WIDTH = 20000
-SCREEN_HEIGHT = 2000
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 1000
 SCREEN_TITLE = "Platformer"
 
 # Constants used to scale our sprites from their original size
-CHARACTER_SCALING = 1
-TILE_SCALING = 1
+CHARACTER_SCALING = .3
+TILE_SCALING = .3
 COIN_SCALING = 0.5
-SPRITE_PIXEL_SIZE = 128
+SPRITE_PIXEL_SIZE = 64
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
 
 # Movement speed of player, in pixels per frame
-PLAYER_MOVEMENT_SPEED = 128
+PLAYER_MOVEMENT_SPEED = 32
 GRAVITY = 0
 PLAYER_JUMP_SPEED = 32
 
 # How many pixels to keep as a minimum margin between the character
 # and the edge of the screen.
 LEFT_VIEWPORT_MARGIN = 300
-RIGHT_VIEWPORT_MARGIN = 150
-BOTTOM_VIEWPORT_MARGIN = 1000
-TOP_VIEWPORT_MARGIN = 100
+
+BOTTOM_VIEWPORT_MARGIN = 100
+
 
 
 class MyGame(arcade.Window):
@@ -68,7 +68,7 @@ class MyGame(arcade.Window):
         """ Set up the game here. Call this function to restart the game. """
 
         # Used to keep track of our scrolling
-        self.view_bottom = 100
+        self.view_bottom = 0
         self.view_left = 0
 
         # Keep track of the score
@@ -182,7 +182,26 @@ class MyGame(arcade.Window):
             # Add one to the score
             self.score += 1
 
+        # --- Manage Scrolling ---
 
+        # Track if we need to change the viewport
+
+        changed = False
+
+
+
+        self.view_left = -100
+
+
+
+
+
+
+
+
+
+            # Do the scrolling
+        arcade.set_viewport(-100,SCREEN_WIDTH ,-400, SCREEN_HEIGHT)
 
 
 def main():
