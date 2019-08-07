@@ -16,12 +16,23 @@ class NeuralNet:
         #each element is a matrix of weights
         self.weights = []
 
+    def copy(self, copynet):
+        # topology[i] is an integer corresponding to the number of nodes
+        # in layer i of the network
+        self.topology = copynet.topology
+        self.numInputNodes = copynet.topology[0]
+        self.numOutputNodes = copynet.topology[-1]
+        self.numHiddenLayers = copynet.len(topology)-2
+        self.totalLayers = copynet.len(topology)
+        #each element is a matrix of weights
+        self.weights = []
+
     def randomizeWeights(self):
         # if there are n layers, there are n-1 sets of weights
         for i in range(0, self.totalLayers - 1):
             self.weights.append(np.random.rand(self.topology[i + 1], self.topology[i]) ) #rows in num of nodes in next layer, columns in num rows in previous4
 
-        print("W0:", self.weights[0])
+        # print("W0:", self.weights[0])
 
     #does not implement bias atm. Param is column vector of input activations
     def feedForward(self, inputActivations):
@@ -30,13 +41,14 @@ class NeuralNet:
         for i in range(1, self.totalLayers): #start at first hidden layer
             activations.append (sigmoid(np.dot(self.weights[i - 1], activations[i - 1])) )
 
-############# TESTING #########
-
-top = [4, 3, 2] #layer 0 (input) has 4 nodes, layers 1 (a hidden) has 3 nodes
-network = NeuralNet(top)
-network.randomizeWeights()
-
-input = np.array([1, 0, 1, 1])
-input = input.transpose()
-
-network.feedForward(input)
+    #put all weights into a single array ([layer1 layer2 layer3])
+    def flattenWeights(self):
+        flattenWeights = []
+        counter = 1
+        for i in self.weights:
+            for j in i:
+                if np.array_equal(np.array(flattenWeights), np.array([])):
+                    flattenWeights = np.ravel(j)
+                else:
+                    flattenWeights = np.concatenate((flattenWeights,np.ravel(j)))
+        return flattenWeights
