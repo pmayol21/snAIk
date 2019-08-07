@@ -45,10 +45,10 @@ class NeuralNet:
 
 ############# TESTING #########
 
-top = [4, 3, 2] #layer 0 (input) has 4 nodes, layers 1 (a hidden) has 3 nodes
-network = NeuralNet(top)
-network.randomizeWeights()
+# top = [4, 3, 2] #layer 0 (input) has 4 nodes, layers 1 (a hidden) has 3 nodes
+# network = NeuralNet(top)
+# network.randomizeWeights()
 
-input = np.array([1, 0, 1, 1])
-input = input.transpose()
-network.feedForward(input)
+# input = np.array([1, 0, 1, 1])
+# input = input.transpose()
+# network.feedForward(input)
