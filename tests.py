@@ -11,7 +11,7 @@ network.randomizeWeights()
 
 input = np.array([1, 0, 1, 1])
 input = input.transpose()
-print(network.feedForward(input))
+print(network.feedForward(input), end = "\n\n")
 # -----------------------------------------------------------------------------
 
 
@@ -26,6 +26,15 @@ network2.randomizeWeights()
 
 crossed_works = genetic_methods.CrossOver(network1, network2)
 print(len(crossed_works))
-print(crossed_works)
+print(crossed_works, end = "\n\n")
 # -----------------------------------------------------------------------------
 
+# --------------------------TESTING CROSSOVER-------------------------------
+print("TESTING FITNESS FUNCTION")
+
+test_scores = np.random.rand(4) * 100
+# test_scores = np.array([100,50])
+
+print(test_scores)
+
+print(genetic_methods.EvalFit(test_scores))

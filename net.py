@@ -44,7 +44,6 @@ class NeuralNet:
     #put all weights into a single array ([layer1 layer2 layer3])
     def flattenWeights(self):
         flattenWeights = []
-        counter = 1
         for i in self.weights:
             for j in i:
                 if np.array_equal(np.array(flattenWeights), np.array([])):
