@@ -4,8 +4,8 @@ Platformer Game
 import arcade
 
 # Constants
-SCREEN_WIDTH = 1000
-SCREEN_HEIGHT = 650
+SCREEN_WIDTH = 20000
+SCREEN_HEIGHT = 2000
 SCREEN_TITLE = "Platformer"
 
 # Constants used to scale our sprites from their original size
@@ -22,9 +22,9 @@ PLAYER_JUMP_SPEED = 32
 
 # How many pixels to keep as a minimum margin between the character
 # and the edge of the screen.
-LEFT_VIEWPORT_MARGIN = 150
+LEFT_VIEWPORT_MARGIN = 300
 RIGHT_VIEWPORT_MARGIN = 150
-BOTTOM_VIEWPORT_MARGIN = 100
+BOTTOM_VIEWPORT_MARGIN = 1000
 TOP_VIEWPORT_MARGIN = 100
 
 
@@ -68,7 +68,7 @@ class MyGame(arcade.Window):
         """ Set up the game here. Call this function to restart the game. """
 
         # Used to keep track of our scrolling
-        self.view_bottom = 0
+        self.view_bottom = 100
         self.view_left = 0
 
         # Keep track of the score
@@ -182,47 +182,7 @@ class MyGame(arcade.Window):
             # Add one to the score
             self.score += 1
 
-        # --- Manage Scrolling ---
 
-        # Track if we need to change the viewport
-
-        changed = False
-
-        # Scroll left
-        left_boundary = self.view_left + LEFT_VIEWPORT_MARGIN
-        if self.player_sprite.left < left_boundary:
-            self.view_left -= left_boundary - self.player_sprite.left
-            changed = True
-
-        # Scroll right
-        right_boundary = self.view_left + SCREEN_WIDTH - RIGHT_VIEWPORT_MARGIN
-        if self.player_sprite.right > right_boundary:
-            self.view_left += self.player_sprite.right - right_boundary
-            changed = True
-
-        # Scroll up
-        top_boundary = self.view_bottom + SCREEN_HEIGHT - TOP_VIEWPORT_MARGIN
-        if self.player_sprite.top > top_boundary:
-            self.view_bottom += self.player_sprite.top - top_boundary
-            changed = True
-
-        # Scroll down
-        bottom_boundary = self.view_bottom + BOTTOM_VIEWPORT_MARGIN
-        if self.player_sprite.bottom < bottom_boundary:
-            self.view_bottom -= bottom_boundary - self.player_sprite.bottom
-            changed = True
-
-        if changed:
-            # Only scroll to integers. Otherwise we end up with pixels that
-            # don't line up on the screen
-            self.view_bottom = int(self.view_bottom)
-            self.view_left = int(self.view_left)
-
-            # Do the scrolling
-            arcade.set_viewport(self.view_left,
-                                SCREEN_WIDTH + self.view_left,
-                                self.view_bottom,
-                                SCREEN_HEIGHT + self.view_bottom)
 
 
 def main():
