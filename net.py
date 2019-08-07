@@ -16,6 +16,17 @@ class NeuralNet:
         #each element is a matrix of weights
         self.weights = []
 
+    def copy(self, copynet):
+        # topology[i] is an integer corresponding to the number of nodes
+        # in layer i of the network
+        self.topology = copynet.topology
+        self.numInputNodes = copynet.topology[0]
+        self.numOutputNodes = copynet.topology[-1]
+        self.numHiddenLayers = copynet.len(topology)-2
+        self.totalLayers = copynet.len(topology)
+        #each element is a matrix of weights
+        self.weights = []
+
     def randomizeWeights(self):
         # if there are n layers, there are n-1 sets of weights
         for i in range(0, self.totalLayers - 1):
