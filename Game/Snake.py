@@ -16,9 +16,9 @@ SPRITE_PIXEL_SIZE = 64
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
 
 # Movement speed of player, in pixels per frame
-PLAYER_MOVEMENT_SPEED = 32
+PLAYER_MOVEMENT_SPEED = 16
 GRAVITY = 0
-PLAYER_JUMP_SPEED = 32
+PLAYER_JUMP_SPEED = 16
 
 # How many pixels to keep as a minimum margin between the character
 # and the edge of the screen.
@@ -59,8 +59,7 @@ class MyGame(arcade.Window):
         self.score = 0
 
         # Load sounds
-        self.collect_coin_sound = arcade.load_sound("sounds/coin1.wav")
-        self.jump_sound = arcade.load_sound("sounds/jump1.wav")
+        
 
         arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
