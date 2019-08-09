@@ -25,7 +25,7 @@ def CrossOver(parent1, parent2):
 def EvalFit(score_array):
     probability_arr = []
 
-    max_prob = .9 #can change this value to make the probability of best scoring snake surviving higher
+    max_prob = .98 #can change this value to make the probability of best scoring snake surviving higher
     max_score = 0
 
     for i in score_array:
@@ -33,6 +33,6 @@ def EvalFit(score_array):
              max_score = i
     
     for i in score_array:
-        probability_arr.append((i - .1 * i)/max_score)
+        probability_arr.append((i - (1 - max_prob) * i)/max_score)
 
     return np.array(probability_arr)

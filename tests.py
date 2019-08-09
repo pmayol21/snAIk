@@ -33,7 +33,6 @@ print(crossed_works, end = "\n\n")
 print("TESTING FITNESS FUNCTION")
 
 test_scores = np.random.rand(4) * 100
-# test_scores = np.array([100,50])
 
 print(test_scores)
 
