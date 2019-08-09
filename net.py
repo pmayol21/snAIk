@@ -32,8 +32,6 @@ class NeuralNet:
         for i in range(0, self.totalLayers - 1):
             self.weights.append(np.random.rand(self.topology[i + 1], self.topology[i]) ) #rows in num of nodes in next layer, columns in num rows in previous4
 
-        # print("W0:", self.weights[0])
-
     #does not implement bias atm. Param is column vector of input activations
     def feedForward(self, inputActivations):
         activations = list()

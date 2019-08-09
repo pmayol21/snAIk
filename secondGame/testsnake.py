@@ -80,6 +80,10 @@ class Game:
         if x1 >= x2 and x1 <= x2 + bsize:
             if y1 >= y2 and y1 <= y2 + bsize:
                 return True
+        if x1 > 800 or x1 < 0:
+            return True
+        if y1 > 600 or y1 < 0:
+            return True
         return False
 
 class App:
@@ -146,6 +150,8 @@ class App:
             self._running = False
 
         while( self._running ):
+            time.sleep (30.0 / 1000.0);
+
             pygame.event.pump()
             keys = pygame.key.get_pressed()
 
@@ -167,7 +173,6 @@ class App:
             self.on_loop()
             self.on_render()
 
-            time.sleep (50.0 / 1000.0);
         self.on_cleanup()
 
 if __name__ == "__main__" :
