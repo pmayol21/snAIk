@@ -139,10 +139,13 @@ class MyGame(arcade.Window):
         self.player_list.draw()
 
 
+<<<<<<< HEAD
         # Draw our score on the screen, scrolling it with the viewport
-        #score_text = f"Score: {self.score}"
+        score_text = f"Score: {self.score}"
         arcade.draw_text(score_text, 10 + self.view_left, 10 + self.view_bottom,
                          arcade.csscolor.WHITE, 18)
+=======
+>>>>>>> 05d789bd3e2842b00929999a9d3df004716c3ade
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
