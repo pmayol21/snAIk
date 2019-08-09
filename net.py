@@ -15,6 +15,7 @@ class NeuralNet:
         self.totalLayers = len(topology)
         #each element is a matrix of weights
         self.weights = []
+        self.mutationRate = 1
 
     def copy(self, copynet):
         # topology[i] is an integer corresponding to the number of nodes
@@ -49,3 +50,19 @@ class NeuralNet:
                 else:
                     flattenWeights = np.concatenate((flattenWeights,np.ravel(j)))
         return flattenWeights
+
+    def mutate(self):
+        tempWeights = flattenWeights(self)
+
+        for i in tempWeights:
+            tempRand = np.random.random(0,1)
+            if(tempRand<mutationRate):
+
+
+    def unflattenWeights(self, flattenedWeights):
+        total_weights = 1
+        for i in topology:
+            total_weights *= i
+        if(len(flattenedWeights) != total_weights):
+            print("wrong dimensions in flattenedWeights, exitting")
+            exit()
