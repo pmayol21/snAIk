@@ -29,7 +29,7 @@ print(len(crossed_works))
 print(crossed_works, end = "\n\n")
 # -----------------------------------------------------------------------------
 
-# --------------------------TESTING CROSSOVER-------------------------------
+# --------------------------TESTING FITNESS-------------------------------
 print("TESTING FITNESS FUNCTION")
 
 test_scores = np.random.rand(4) * 100
@@ -37,3 +37,9 @@ test_scores = np.random.rand(4) * 100
 print(test_scores)
 
 print(genetic_methods.EvalFit(test_scores))
+# -----------------------------------------------------------------------------
+
+# --------------------------TESTING FITNESS-------------------------------
+flattened1 = network1.flattenWeights()
+network2.unflattenWeights(flattened1)
+print("Success")

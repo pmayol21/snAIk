@@ -54,3 +54,13 @@ class NeuralNet:
         return flattenWeights
 
     def mutate(self):
+
+        
+    def unflattenWeights(self, flattenedWeights):
+        total_weights = 1
+        for i in topology:
+            total_weights *= i
+        if(len(flattenedWeights) != total_weights):
+            print("wrong dimensions in flattenedWeights, exitting")
+            exit()
+        
