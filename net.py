@@ -15,6 +15,7 @@ class NeuralNet:
         self.totalLayers = len(topology)
         #each element is a matrix of weights
         self.weights = []
+        self.mutationRate = 1
 
     def copy(self, copynet):
         # topology[i] is an integer corresponding to the number of nodes
@@ -51,3 +52,5 @@ class NeuralNet:
                 else:
                     flattenWeights = np.concatenate((flattenWeights,np.ravel(j)))
         return flattenWeights
+
+    def mutate(self):
