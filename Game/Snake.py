@@ -59,7 +59,7 @@ class MyGame(arcade.Window):
         self.score = 0
 
         # Load sounds
-        
+
 
         arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
@@ -140,7 +140,7 @@ class MyGame(arcade.Window):
 
 
         # Draw our score on the screen, scrolling it with the viewport
-        score_text = f"Score: {self.score}"
+        #score_text = f"Score: {self.score}"
         arcade.draw_text(score_text, 10 + self.view_left, 10 + self.view_bottom,
                          arcade.csscolor.WHITE, 18)
 
