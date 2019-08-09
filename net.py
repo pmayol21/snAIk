@@ -54,3 +54,9 @@ class NeuralNet:
         return flattenWeights
 
     def mutate(self):
+        tempWeights = flattenWeights(self)
+
+        for i in tempWeights:
+            tempRand = np.random.random(0,1)
+            if(tempRand<mutationRate):
+                
