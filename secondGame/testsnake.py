@@ -77,9 +77,10 @@ class Player:
 
 class Game:
     def isCollision(self,x1,y1,x2,y2,bsize):
-        if x1 >= x2 and x1 <= x2 + bsize:
-            if y1 >= y2 and y1 <= y2 + bsize:
+        if x1 >= x2 and x1 < x2 + bsize:
+            if y1 >= y2 and y1 < y2 + bsize:
                 return True
+        #check for out of bounds
         if x1 > 800 or x1 < 0:
             return True
         if y1 > 600 or y1 < 0:
@@ -109,7 +110,7 @@ class App:
         pygame.display.set_caption('Pygame pythonspot.com example')
         self._running = True
         self._image_surf = pygame.image.load("index2.png").convert()
-        self._apple_surf = pygame.image.load("index2.png").convert()
+        self._apple_surf = pygame.image.load("apple.png").convert()
 
     def on_event(self, event):
         if event.type == QUIT:
