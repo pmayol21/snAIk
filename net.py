@@ -60,7 +60,7 @@ class NeuralNet:
             #print(tempRand)
             if(tempRand<self.mutationRate):
                 #print(i)
-                tempWeights[i] = (np.random.randint(0,100))/100
+                tempWeights[i] = (np.random.randint(0,100000000))/100000000
                 #print(i)
 
         self.unflattenWeights(tempWeights)
