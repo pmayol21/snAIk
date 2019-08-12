@@ -40,6 +40,15 @@ class NeuralNet:
         for i in range(1, self.totalLayers): #start at first hidden layer
             activations.append (sigmoid(np.dot(self.weights[i - 1], activations[i - 1])) )
 
+        output = activations[len(activations)-1]
+        # print(activations)
+        summed = 0
+        for i in output:
+            summed += i
+        for i in range(0,len(output)):
+            output[i] /= summed
+        return output
+
     #put all weights into a single array ([layer1 layer2 layer3])
     def flattenWeights(self):
         flattenWeights = []
@@ -92,3 +101,9 @@ class NeuralNet:
 
             self.weights.append(np.array(nodes))
             # print(self.weights,end = "\n\n")
+
+    def makeMove(self, input):
+        output = feedForward(input)
+        move = output[0]
+        return move
+                    
