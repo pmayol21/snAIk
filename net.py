@@ -56,13 +56,33 @@ class NeuralNet:
 
         for i in tempWeights:
             tempRand = np.random.random(0,1)
-            if(tempRand<mutationRate):
+            # if(tempRand<mutationRate):
 
 
     def unflattenWeights(self, flattenedWeights):
-        total_weights = 1
-        for i in topology:
-            total_weights *= i
+        self.weights = []
+        total_weights = 0
+        weights_per_layer = []
+        for i in range(1,len(self.topology)):
+            total_weights += self.topology[i] * self.topology[i-1] 
+            weights_per_layer.append(self.topology[i] * self.topology[i-1])
         if(len(flattenedWeights) != total_weights):
             print("wrong dimensions in flattenedWeights, exitting")
             exit()
+
+        flatten_index = 0
+        for i in range(0,len(self.topology)-1):
+            nodes = []
+
+            weights_per_node = (int)(weights_per_layer[i]/self.topology[i+1])
+            for j in range(0, self.topology[i+1]):
+                weight_count = 0
+                nodes.append(np.zeros(weights_per_node))
+                while weight_count < weights_per_node:
+                    nodes[j][weight_count] = flattenedWeights[flatten_index]
+                    weight_count += 1
+                    flatten_index += 1
+                
+            self.weights.append(np.array(nodes))
+            # print(self.weights,end = "\n\n")
+                    
