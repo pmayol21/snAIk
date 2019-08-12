@@ -182,6 +182,19 @@ class App:
 
         self.on_cleanup()
 
+    #BELOW IS A BUNCH OF FUNCTIONS TO PROVIDE INFO FOR THE NEURAL NET
+
+    #returns array of snake peices, index 0 is the head
+    def getPositionX(self):
+        return self.x.copy()
+
+    def getPositionY(self):
+        return self.y.copy()
+
+    def getScore(self):
+        return self.player.length
+
+
 if __name__ == "__main__" :
     theApp = App(30, 1)
     theApp.on_execute()
