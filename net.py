@@ -55,19 +55,19 @@ class NeuralNet:
         tempWeights = self.flattenWeights()
 
         #print(self.mutationRate)
-        for i in tempWeights:
+        for i in range( len(tempWeights) ):
             tempRand = (np.random.randint(0,100))/100
             #print(tempRand)
             if(tempRand<self.mutationRate):
                 #print(i)
-                i = (np.random.randint(0,100))/100
+                tempWeights[i] = (np.random.randint(0,100))/100
                 #print(i)
 
         self.unflattenWeights(tempWeights)
 
 
     def unflattenWeights(self, flattenedWeights):
-        self.weights = []
+        self.weights = list()
         total_weights = 0
         weights_per_layer = []
         for i in range(1,len(self.topology)):
