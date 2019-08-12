@@ -55,8 +55,9 @@ class NeuralNet:
         tempWeights = flattenWeights(self)
 
         for i in tempWeights:
-            tempRand = np.random.random(0,1)
-            # if(tempRand<mutationRate):
+            tempRand = (random.randint(0,100))/100
+            if(tempRand<mutationRate):
+                i = (random.randint(0,100))/100
 
 
     def unflattenWeights(self, flattenedWeights):
