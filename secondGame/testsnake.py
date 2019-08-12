@@ -94,7 +94,9 @@ class App:
     player = 0
     apple = 0
 
-    def __init__(self):
+    #first param is time in ms to pause the screen to slow the loop, 30 is a good number for humans
+    #second param is 0 or 1 for show-graphics?
+    def __init__(self, sleepTime, showGraphics):
         self._running = True
         self._display_surf = None
         self._image_surf = None
@@ -102,6 +104,9 @@ class App:
         self.game = Game()
         self.player = Player(3)
         self.apple = Apple(5,5)
+        self.sleepTime = sleepTime
+        self.showGraphics = showGraphics
+
 
     def on_init(self):
         pygame.init()
@@ -151,7 +156,7 @@ class App:
             self._running = False
 
         while( self._running ):
-            time.sleep (30.0 / 1000.0);
+            time.sleep (self.sleepTime / 1000.0);
 
             pygame.event.pump()
             keys = pygame.key.get_pressed()
@@ -172,10 +177,11 @@ class App:
                 self._running = False
 
             self.on_loop()
-            self.on_render()
+            if (self.showGraphics == 1):
+                self.on_render()
 
         self.on_cleanup()
 
 if __name__ == "__main__" :
-    theApp = App()
+    theApp = App(30, 1)
     theApp.on_execute()
