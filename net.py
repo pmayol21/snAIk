@@ -65,7 +65,7 @@ class NeuralNet:
         total_weights = 0
         weights_per_layer = []
         for i in range(1,len(self.topology)):
-            total_weights += self.topology[i] * self.topology[i-1] 
+            total_weights += self.topology[i] * self.topology[i-1]
             weights_per_layer.append(self.topology[i] * self.topology[i-1])
         if(len(flattenedWeights) != total_weights):
             print("wrong dimensions in flattenedWeights, exitting")
@@ -83,7 +83,6 @@ class NeuralNet:
                     nodes[j][weight_count] = flattenedWeights[flatten_index]
                     weight_count += 1
                     flatten_index += 1
-                
+
             self.weights.append(np.array(nodes))
             # print(self.weights,end = "\n\n")
-                    
