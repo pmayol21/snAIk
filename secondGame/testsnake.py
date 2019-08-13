@@ -184,16 +184,16 @@ class App:
                     max_value = poss_moves[i]
                     max_index = i
 
-            if (keys[K_RIGHT] or max_index == 0):
+            if (keys[K_RIGHT]):# or max_index == 0):
                 self.player.moveRight()
 
-            if (keys[K_LEFT] or max_index == 1):
+            if (keys[K_LEFT]):# or max_index == 1):
                 self.player.moveLeft()
 
-            if (keys[K_UP] or max_index == 2):
+            if (keys[K_UP]): # or max_index == 2):
                 self.player.moveUp()
 
-            if (keys[K_DOWN] or max_index == 3):
+            if (keys[K_DOWN]):# or max_index == 3):
                 self.player.moveDown()
 
             if (keys[K_ESCAPE]):
