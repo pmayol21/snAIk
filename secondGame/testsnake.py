@@ -2,6 +2,10 @@ from pygame.locals import *
 from random import randint
 import pygame
 import time
+import sys
+sys.path.insert(1,"/mnt/c/Users/Mayolp/AIFACT/snAIk")
+import net
+import genetic_methods
 
 class Apple:
     x = 0
@@ -193,6 +197,9 @@ class App:
 
     def getScore(self):
         return self.player.length
+    
+    def getFoodPos(self):
+        return self.apple.x, self.apple.y
 
 
 if __name__ == "__main__" :

@@ -15,7 +15,7 @@ class NeuralNet:
         self.totalLayers = len(topology)
         #each element is a matrix of weights
         self.weights = []
-        self.mutationRate = 1
+        self.mutationRate = .01
 
     def copy(self, copynet):
         # topology[i] is an integer corresponding to the number of nodes
@@ -26,7 +26,7 @@ class NeuralNet:
         self.numHiddenLayers = copynet.len(topology)-2
         self.totalLayers = copynet.len(topology)
         #each element is a matrix of weights
-        self.weights = []
+        self.weights = copynet.weights
 
     def randomizeWeights(self):
         # if there are n layers, there are n-1 sets of weights

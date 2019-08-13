@@ -3,15 +3,33 @@ import net
 import numpy as np
 
 
+
+# def printWeights(weights):
+#     layer_counter = 1
+#     for i in range(0, len(weights)):
+#         print("Layer " + str(layer_counter) + ":")
+#         node_counter = 1
+#         for j in range(0, len(weights[i])):
+#             print("\tNode " + str(node_counter) + ": ", end = "")
+#             for k in range(0, len(weights[i][j])):
+#                 print(weights[i][j][k], end = " ")
+#             node_counter += 1
+#             print()
+#         layer_counter += 1
 # --------------------------TESTING FEED FORWARD-------------------------------
 print("--------------------------TESTING FEED FORWARD-------------------------------")
-top = [65, 100, 4] #layer 0 (input) has 4 nodes, layers 1 (a hidden) has 3 nodes
+top = [65,1, 8] #layer 0 (input) has 4 nodes, layers 1 (a hidden) has 3 nodes
 network = net.NeuralNet(top)
 network.randomizeWeights()
+# print(network.weights)
+
 
 input = np.array(np.random.rand(1,65))
-print(input)
+# input = [1,1 ,1]
+# print(input)
 input = input.transpose()
+print(network.feedForward(input))
+network.randomizeWeights()
 print(network.feedForward(input))
 print("-----------------------------------------------------------------------------",end = "\n\n")
 # -----------------------------------------------------------------------------
@@ -79,4 +97,38 @@ for i in range(0,len(network1.weights)):
                 print("\n\nFAILURE: Unequal values")
                 exit(0)
 print("Success")
-print("-----------------------------------------------------------------------------")
+print("-----------------------------------------------------------------------------",end = "\n\n")
+
+# --------------------------TESTING SNAKE SELECTION-------------------------------
+print("--------------------------TESTING KILLING-------------------------------")
+
+snakes = []
+scores = []
+for i in range(0,10):
+    scores.append(np.random.randint(0,100))
+    snakes.append(i)
+
+genetic_methods.LiveorDie(snakes, scores)
+print(snakes)
+
+print("-----------------------------------------------------------------------------",end = "\n\n")
+
+
+# --------------------------TESTING SNAKE BREEDING-------------------------------
+print("--------------------------TESTING MAKE BABIES-------------------------------")
+
+breed_top = [65, 2, 8]
+snakes = []
+scores = []
+for i in range(0, 10):
+    scores.append(np.random.randint(0,100))
+    snake = net.NeuralNet(breed_top)
+    snake.randomizeWeights()
+    snakes.append(snake)
+
+genetic_methods.LiveorDie(snakes, scores)
+
+print(len(snakes))
+genetic_methods.SexySnake(snakes)
+print(len(snakes))
+print("-----------------------------------------------------------------------------",end = "\n\n")

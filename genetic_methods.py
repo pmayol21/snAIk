@@ -36,3 +36,34 @@ def EvalFit(score_array):
         probability_arr.append((i - (1 - max_prob) * i)/max_score)
 
     return np.array(probability_arr)
+
+def LiveorDie(snakes, scores):
+    chances = EvalFit(scores)
+    snake_counter = 0
+    print(chances)
+    for i in range(0,len(chances)):
+        chance = np.random.random()
+        if(chance > chances[i]):
+            print("Killed snake " + str(snakes[snake_counter]) + " with chance: " + str(chance) + " vs chance of survival: " + str(chances[i]))
+            snakes.pop(snake_counter)
+        else:
+            snake_counter += 1
+
+# implemented breeding by the best snake getting to do the doo with all other snakes and those will be the children
+# added to the population
+def SexySnake(snakes):
+    if(len(snakes) == 0):
+        child = net.NeuralNet(snakes[0].topology)
+        child.copy(snakes[0])
+
+        child.mutate()
+        snakes.append(child)
+        return
+    
+
+    for i in range(1, len(snakes)):
+        child = net.NeuralNet(snakes[0].topology)
+        child.unflattenWeights(CrossOver(snakes[0], snakes[i]))
+        child.mutate()
+        snakes.append(child)
+    return
