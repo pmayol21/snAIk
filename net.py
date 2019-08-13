@@ -30,6 +30,7 @@ class NeuralNet:
 
     def randomizeWeights(self):
         # if there are n layers, there are n-1 sets of weights
+        self.weights = []
         for i in range(0, self.totalLayers - 1):
             self.weights.append(np.random.rand(self.topology[i + 1], self.topology[i]) ) #rows in num of nodes in next layer, columns in num rows in previous4
 

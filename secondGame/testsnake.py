@@ -30,6 +30,7 @@ class Player:
     updateCountMax = 2
     updateCount = 0
 
+
     def __init__(self, length):
        self.length = length
        for i in range(0,2000):
@@ -37,8 +38,16 @@ class Player:
            self.y.append(-100)
 
        # initial positions, no collision.
-       self.x[1] = 1*44
-       self.x[2] = 2*44
+       self.x[0] = 5 * 44
+       self.x[1] = 4*44
+       self.x[2] = 3*44
+       self.y[0] = 5*44
+       self.y[1] = 5*44
+       self.y[2] = 5*44
+
+       self.network = net.NeuralNet([4, 3, 4])
+       self.network.randomizeWeights()
+       print(self.network.weights)
 
     def update(self):
 
@@ -118,8 +127,8 @@ class App:
 
         pygame.display.set_caption('Pygame pythonspot.com example')
         self._running = True
-        self._image_surf = pygame.image.load("index2.png").convert()
-        self._apple_surf = pygame.image.load("apple.png").convert()
+        self._image_surf = pygame.image.load("C:/Users/Mayolp/AIFACT/snAIk/secondGame/index2.png").convert()
+        self._apple_surf = pygame.image.load("C:/Users/Mayolp/AIFACT/snAIk/secondGame/apple.png").convert()
 
     def on_event(self, event):
         if event.type == QUIT:
@@ -164,17 +173,27 @@ class App:
 
             pygame.event.pump()
             keys = pygame.key.get_pressed()
+            
+            poss_moves = self.player.network.feedForward([self.player.x[0], self.player.y[0], self.apple.x, self.apple.y])
+            self.player.network.randomizeWeights()
 
-            if (keys[K_RIGHT]):
+            max_value = 0
+            max_index = 0
+            for i in range(0, len(poss_moves)):
+                if(poss_moves[i] > max_value):
+                    max_value = poss_moves[i]
+                    max_index = i
+
+            if (keys[K_RIGHT] or max_index == 0):
                 self.player.moveRight()
 
-            if (keys[K_LEFT]):
+            if (keys[K_LEFT] or max_index == 1):
                 self.player.moveLeft()
 
-            if (keys[K_UP]):
+            if (keys[K_UP] or max_index == 2):
                 self.player.moveUp()
 
-            if (keys[K_DOWN]):
+            if (keys[K_DOWN] or max_index == 3):
                 self.player.moveDown()
 
             if (keys[K_ESCAPE]):

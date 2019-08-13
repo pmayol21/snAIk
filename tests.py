@@ -18,18 +18,20 @@ import numpy as np
 #         layer_counter += 1
 # --------------------------TESTING FEED FORWARD-------------------------------
 print("--------------------------TESTING FEED FORWARD-------------------------------")
-top = [65,1, 8] #layer 0 (input) has 4 nodes, layers 1 (a hidden) has 3 nodes
+top = [4,3, 4] #layer 0 (input) has 4 nodes, layers 1 (a hidden) has 3 nodes
 network = net.NeuralNet(top)
 network.randomizeWeights()
 # print(network.weights)
 
 
-input = np.array(np.random.rand(1,65))
+input = np.array(np.random.rand(1,4))
 # input = [1,1 ,1]
 # print(input)
 input = input.transpose()
 print(network.feedForward(input))
+# print(network.weights)
 network.randomizeWeights()
+# print(network.weights)
 print(network.feedForward(input))
 print("-----------------------------------------------------------------------------",end = "\n\n")
 # -----------------------------------------------------------------------------
