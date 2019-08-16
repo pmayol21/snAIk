@@ -176,7 +176,7 @@ class App:
             keys = pygame.key.get_pressed()
             
             poss_moves = self.player.network.feedForward([self.player.x[0] * 100.3, self.player.y[0]* 100.3,self.player.direction,self.apple.x* 100.3, self.apple.y* 100.3])
-            self.player.network.randomizeWeights()
+            #self.player.network.randomizeWeights()
             #print(poss_moves)
             max_value = 0
             max_index = 0

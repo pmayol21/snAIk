@@ -16,7 +16,7 @@ import numpy as np
 best_score = 0
 snakes = []
 for i in range(1,5):
-    network = net.NeuralNet([5,5,4])
+    network = net.NeuralNet([5,3,4])
     network.randomizeWeights()
     #print(network.weights)
     snakes.append(network)
