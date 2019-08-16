@@ -1,5 +1,8 @@
 import random
 # import curses
+# import platform
+# if platform.system() == 'Windows':
+#   import windows-curses as curses:
 import curses
 from curses import wrapper
 
@@ -110,23 +113,23 @@ class KeyboardAgent(Agent):
   def getNextMove(self, state):
     char = self.stdscr.getch()
     if char == 113: next_move = 'QUIT'
-    elif char == curses.KEY_RIGHT: next_move = 'RIGHT'
-    elif char == curses.KEY_LEFT:  next_move = 'LEFT'
-    elif char == curses.KEY_UP:    next_move = 'UP'
-    elif char == curses.KEY_DOWN:  next_move = 'DOWN'
+    elif char == 454 or char == curses.KEY_RIGHT: next_move = 'RIGHT'
+    elif char == 452 or char == curses.KEY_LEFT:  next_move = 'LEFT'
+    elif char == 450 or char == curses.KEY_UP:    next_move = 'UP'
+    elif char == 456 or char == curses.KEY_DOWN:  next_move = 'DOWN'
     return next_move
 
 def main(stdscr):
   # Clear screen
+  stdscr.addstr(0, 0, 'use the arrow keys or WASD to move around.\npress any key to begin!')
+  char = stdscr.getch()
   while (True):
     stdscr.clear()
     # curses.curs_set(0)
     agent = KeyboardAgent(stdscr)
     game = Game(10, 10)
-    agent.stdscr.addstr(0, 0, 'use the arrow keys or WASD to move around.\npress any key to begin!')
-    char = stdscr.getch()
     game.play(agent)
-    agent.stdscr.addstr(15, 0, 'game over, press any key to play again (q to quit)')
+    stdscr.addstr(15, 0, 'game over, press any key to play again (q to quit)')
     char = stdscr.getch()
     if char == 113: return 0
 
