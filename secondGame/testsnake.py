@@ -175,8 +175,8 @@ class App:
             pygame.event.pump()
             keys = pygame.key.get_pressed()
             
-            poss_moves = self.player.network.feedForward([self.player.x[0], self.player.y[0],self.player.direction,self.apple.x, self.apple.y])
-            #self.player.network.randomizeWeights()
+            poss_moves = self.player.network.feedForward([self.player.x[0] * 100.3, self.player.y[0]* 100.3,self.player.direction,self.apple.x* 100.3, self.apple.y* 100.3])
+            self.player.network.randomizeWeights()
             #print(poss_moves)
             max_value = 0
             max_index = 0
@@ -230,7 +230,7 @@ if __name__ == "__main__" :
     theApp.on_execute()
 
 def Run(_net):
-    theApp = App(30, 1, _net)
+    theApp = App(10, 1, _net)
     theApp
     theApp.on_execute()
     return theApp.player.network, theApp.player.length
