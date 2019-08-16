@@ -21,7 +21,7 @@ for i in range(1,5):
     #print(network.weights)
     snakes.append(network)
 
-while(best_score < 10):
+while(best_score < 10 * 100):
     snake_counter = 0
     while(len(snakes) > 10):
         print("deleting snakes " + str(len(snakes)))
@@ -33,9 +33,9 @@ while(best_score < 10):
     for i in range(0,len(snakes)):
         snake, score = testsnake.Run(snakes[i])
 
-        scores.append(score)
+        scores.append(score * 100)
         if(score > best_score):
-            best_score = score
+            best_score = score * 100
     
     genetic_methods.LiveorDie(snakes, scores)
     genetic_methods.SexySnake(snakes)

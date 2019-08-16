@@ -230,7 +230,7 @@ if __name__ == "__main__" :
     theApp.on_execute()
 
 def Run(_net):
-    theApp = App(10, 1, _net)
+    theApp = App(0, 1, _net)
     theApp
     theApp.on_execute()
     return theApp.player.network, theApp.player.length
