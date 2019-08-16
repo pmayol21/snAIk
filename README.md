@@ -1,5 +1,5 @@
 # snAIk
-Training a neural net to play a classical snake game through nueral evolution.
+Training a neural net to play a classical snake game through neural evolution.
 
 ## Contributors
 
