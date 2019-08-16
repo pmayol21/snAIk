@@ -52,7 +52,7 @@ def LiveorDie(snakes, scores):
 # implemented breeding by the best snake getting to do the doo with all other snakes and those will be the children
 # added to the population
 def SexySnake(snakes):
-    if(len(snakes) == 0):
+    if(len(snakes) == 1):
         child = net.NeuralNet(snakes[0].topology)
         child.copy(snakes[0])
 

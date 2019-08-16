@@ -23,7 +23,7 @@ class NeuralNet:
         self.topology = copynet.topology
         self.numInputNodes = copynet.topology[0]
         self.numOutputNodes = copynet.topology[-1]
-        self.numHiddenLayers = copynet.len(topology)-2
+        self.numHiddenLayers = len(copynet.topology)-2
         self.totalLayers = copynet.len(topology)
         #each element is a matrix of weights
         self.weights = copynet.weights
@@ -41,7 +41,7 @@ class NeuralNet:
         for i in range(1, self.totalLayers): #start at first hidden layer
             activations.append (sigmoid(np.dot(self.weights[i - 1], activations[i - 1])) )
 
-        output = activations[len(activations)-1]
+        output = activations[-1]
         # print(activations)
         summed = 0
         for i in output:

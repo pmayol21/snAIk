@@ -31,7 +31,7 @@ class Player:
     updateCount = 0
 
 
-    def __init__(self, length):
+    def __init__(self, length, _network):
        self.length = length
        for i in range(0,2000):
            self.x.append(-100)
@@ -45,9 +45,8 @@ class Player:
        self.y[1] = 5*44
        self.y[2] = 5*44
 
-       self.network = net.NeuralNet([4, 3, 4])
-       self.network.randomizeWeights()
-       print(self.network.weights)
+       self.network = _network
+       #print(self.network.weights)
 
     def update(self):
 
@@ -109,13 +108,13 @@ class App:
 
     #first param is time in ms to pause the screen to slow the loop, 30 is a good number for humans
     #second param is 0 or 1 for show-graphics?
-    def __init__(self, sleepTime, showGraphics):
+    def __init__(self, sleepTime, showGraphics, _net):
         self._running = True
         self._display_surf = None
         self._image_surf = None
         self._apple_surf = None
         self.game = Game()
-        self.player = Player(3)
+        self.player = Player(3, _net)
         self.apple = Apple(5,5)
         self.sleepTime = sleepTime
         self.showGraphics = showGraphics
@@ -151,7 +150,9 @@ class App:
                 print("You lose! Collision: ")
                 print("x[0] (" + str(self.player.x[0]) + "," + str(self.player.y[0]) + ")")
                 print("x[" + str(i) + "] (" + str(self.player.x[i]) + "," + str(self.player.y[i]) + ")")
-                exit(0)
+                return False
+
+        return True
 
         pass
 
@@ -174,9 +175,9 @@ class App:
             pygame.event.pump()
             keys = pygame.key.get_pressed()
             
-            poss_moves = self.player.network.feedForward([self.player.x[0], self.player.y[0], self.apple.x, self.apple.y])
-            self.player.network.randomizeWeights()
-
+            poss_moves = self.player.network.feedForward([self.player.x[0], self.player.y[0],self.player.direction,self.apple.x, self.apple.y])
+            #self.player.network.randomizeWeights()
+            #print(poss_moves)
             max_value = 0
             max_index = 0
             for i in range(0, len(poss_moves)):
@@ -184,26 +185,29 @@ class App:
                     max_value = poss_moves[i]
                     max_index = i
 
-            if (keys[K_RIGHT]):# or max_index == 0):
+            #max_index += 1
+            if (keys[K_RIGHT] or max_index == 0):
                 self.player.moveRight()
 
-            if (keys[K_LEFT]):# or max_index == 1):
+            if (keys[K_LEFT] or max_index == 1):
                 self.player.moveLeft()
 
-            if (keys[K_UP]): # or max_index == 2):
+            if (keys[K_UP] or max_index == 2):
                 self.player.moveUp()
 
-            if (keys[K_DOWN]):# or max_index == 3):
+            if (keys[K_DOWN] or max_index == 3):
                 self.player.moveDown()
 
             if (keys[K_ESCAPE]):
                 self._running = False
 
-            self.on_loop()
+            if(not self.on_loop()):
+                self._running = False
             if (self.showGraphics == 1):
                 self.on_render()
 
         self.on_cleanup()
+        return False
 
     #BELOW IS A BUNCH OF FUNCTIONS TO PROVIDE INFO FOR THE NEURAL NET
 
@@ -224,3 +228,9 @@ class App:
 if __name__ == "__main__" :
     theApp = App(30, 1)
     theApp.on_execute()
+
+def Run(_net):
+    theApp = App(30, 1, _net)
+    theApp
+    theApp.on_execute()
+    return theApp.player.network, theApp.player.length

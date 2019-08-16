@@ -1,7 +1,9 @@
 import genetic_methods
 import net
 import numpy as np
-
+import sys
+sys.path.insert(1,"/mnt/c/Users/Mayolp/AIFACT/snAIk/secondGame")
+import testsnake
 
 
 # def printWeights(weights):
@@ -133,4 +135,9 @@ genetic_methods.LiveorDie(snakes, scores)
 print(len(snakes))
 genetic_methods.SexySnake(snakes)
 print(len(snakes))
+print("-----------------------------------------------------------------------------",end = "\n\n")
+
+# --------------------------TESTING GAME-------------------------------
+print("--------------------------TESTING GAME CALL-------------------------------")
+testsnake.Run()
 print("-----------------------------------------------------------------------------",end = "\n\n")
