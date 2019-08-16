@@ -5,6 +5,7 @@ except Exception as e:
   print("Looks like you're not on linux. pip install windows-curses and try again")
   exit()
 
+
 class GameState:
   # (0,0) is top left corner
   def __init__(self, width, height):
@@ -26,7 +27,7 @@ class GameState:
       '\n'.join([''.join(
       ['oo' if self.head[0] == i and self.head[1] == j else
       '()' if self.snake_bools[i][j] else
-      'xx' if self.food_bools[i][j] else '__'
+      '::' if self.food_bools[i][j] else '__'
       for j in range(self.width)])
       for i in range(self.height)])) + '\n\n'
 
@@ -86,9 +87,7 @@ class Game:
     while (True):
       # print(self.state)
       agent.stdscr.addstr(0, 0, str(self.state))
-      agent.stdscr.addstr('q to quit')
-      # curses.curs_set(0)
-      agent.stdscr.refresh()
+      agent.stdscr.addstr('q to quit\n')
       # agent.stdscr.refresh()
       self.state.direction = agent.getNextMove(self.state)
       if self.state.direction == 'QUIT': return 1
@@ -110,6 +109,7 @@ class KeyboardAgent(Agent):
 
   def getNextMove(self, state):
     char = self.stdscr.getch()
+    next_move = state.direction
     if char == 113: next_move = 'QUIT'
     elif char == 454 or char == curses.KEY_RIGHT: next_move = 'RIGHT'
     elif char == 452 or char == curses.KEY_LEFT:  next_move = 'LEFT'
@@ -118,16 +118,16 @@ class KeyboardAgent(Agent):
     return next_move
 
 def main(stdscr):
-  # Clear screen
+  curses.curs_set(False)
+  stdscr.clear()
   stdscr.addstr(0, 0, 'use the arrow keys or WASD to move around.\npress any key to begin!')
   char = stdscr.getch()
   while (True):
     stdscr.clear()
-    # curses.curs_set(0)
     agent = KeyboardAgent(stdscr)
     game = Game(10, 10)
     game.play(agent)
-    stdscr.addstr(15, 0, 'game over, press any key to play again (q to quit)')
+    stdscr.addstr(15, 0, 'game over, press any key to play again (q to quit)\n')
     char = stdscr.getch()
     if char == 113: return 0
 
