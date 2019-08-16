@@ -1,11 +1,9 @@
 import random
-# import curses
-# import platform
-# if platform.system() == 'Windows':
-#   import windows-curses as curses:
-import curses
-from curses import wrapper
-
+try:
+  import curses
+except Exception as e:
+  print("Looks like you're not on linux. pip install windows-curses and try again")
+  exit()
 
 class GameState:
   # (0,0) is top left corner
@@ -136,7 +134,7 @@ def main(stdscr):
 
 if __name__ == '__main__':
   print('starting!')
-  result = wrapper(main)
+  result = curses.wrapper(main)
   print(f'result: {result}')
   if result == -1:
     print('something went wrong')
