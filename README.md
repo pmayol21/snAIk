@@ -16,10 +16,6 @@ Richard Northrup
 
 Will Zawilinski
 
-## Slideshow link
-
-https://docs.google.com/presentation/d/1xZgK9rnPcc02LQdOTg0_6cUooFeAgcZAJZcS8epcUdo/edit#slide=id.g35f391192_04
-
 [Our group presentation](https://docs.google.com/presentation/d/1xZgK9rnPcc02LQdOTg0_6cUooFeAgcZAJZcS8epcUdo/edit#slide=id.g35f391192_04)
 
 ## Instructions:
