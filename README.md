@@ -63,5 +63,5 @@ The length of each snake at the time of death determines how "fit" it was. The f
 
 
 ## Our process/struggles
-We initially attempted to create out own game from scratch. After this failed, we then found a python game online which we modified to suit our needs. However, after our discusion during and after the demo on Friday, rewrote an entire snake game again, in order to get different inputs with the hope of allowing our neural network to have access to more inputs. This provided better results, however our results are still not ideal.
+We initially attempted to create out own game from scratch. After this failed, we then found a python game online which we modified to suit our needs (found at https://pythonspot.com/snake-with-pygame/). However, after our discusion during and after the demo on Friday, rewrote an entire snake game again, in order to get different inputs with the hope of allowing our neural network to have access to more inputs. This provided better results, however our results are still not ideal.
 We also experimented with the size of the neural network. We found that with a small network (1 internal layer with 4 nodes), the network was significantly limited in it's ability to learn. However, we also found that when we created significantly large networks, the outputs aproached 1, which is an undesireable result.
