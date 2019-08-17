@@ -33,4 +33,5 @@ Nueral net written from scratch using numerical computing functions in the packa
 
 ## Genetic Algorithm
 
-The length of each snake at the time of death determines how "fit" it was. The fittest snake in each generations gets to "breed" with the other snakes, meaning its nueral net is combined 50/50 with another and slightly mutated randomly to produce a snake in the next generation. 
+The length of each snake at the time of death determines how "fit" it was. The fittest snake in each generations gets to "breed" with the other snakes, meaning its nueral net is combined with another and slightly mutated randomly to produce a snake in the next generation. The combination of snakes "genes" (aka weights) happens at a randomly determined index. All of the genetic algorithm functions were also written from scratch,
+allowing greater flexibility in changing mutation rates, methods of breeding, and the fitness function. 
