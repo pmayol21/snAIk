@@ -15,7 +15,7 @@ class NeuralNet:
         self.totalLayers = len(topology)
         #each element is a matrix of weights
         self.weights = []
-        self.mutationRate = .01
+        self.mutationRate = .1
 
     def copy(self, copynet):
         # topology[i] is an integer corresponding to the number of nodes
@@ -24,7 +24,7 @@ class NeuralNet:
         self.numInputNodes = copynet.topology[0]
         self.numOutputNodes = copynet.topology[-1]
         self.numHiddenLayers = len(copynet.topology)-2
-        self.totalLayers = copynet.len(topology)
+        self.totalLayers = len(copynet.topology)
         #each element is a matrix of weights
         self.weights = copynet.weights
 
@@ -36,8 +36,7 @@ class NeuralNet:
 
     #does not implement bias atm. Param is column vector of input activations
     def feedForward(self, inputActivations):
-        activations = list()
-        activations.append( inputActivations )
+        activations = [np.array(inputActivations)]
         for i in range(1, self.totalLayers): #start at first hidden layer
             activations.append (sigmoid(np.dot(self.weights[i - 1], activations[i - 1])) )
 
@@ -60,11 +59,11 @@ class NeuralNet:
 
         #print(self.mutationRate)
         for i in range( len(tempWeights) ):
-            tempRand = (np.random.randint(0,100))/100
+            tempRand = np.random.random()
             #print(tempRand)
             if(tempRand<self.mutationRate):
                 #print(i)
-                tempWeights[i] = (np.random.randint(0,100000000))/100000000
+                tempWeights[i] += np.random.random()/3
                 #print(i)
 
         self.unflattenWeights(tempWeights)

@@ -1,6 +1,10 @@
 import random
+import numpy as np
+from agent import Agent, KeyboardAgent
+
 try:
   import curses
+
 except Exception as e:
   print("Looks like you're not on linux. pip install windows-curses and try again")
   exit()
@@ -9,18 +13,19 @@ except Exception as e:
 class GameState:
   # (0,0) is top left corner
   def __init__(self, width, height):
-    random.seed(5)
+    # random.seed(5)
     assert width > 0
     assert height > 0
     self.width = width
     self.height = height
-    self.snake_list = [(0, 0)]
-    self.head = (0, 0)
+    self.head = (height//2, width//2)
+    self.food = (random.randint(0, self.height - 1), random.randint(0, self.width - 1))
+    self.snake_list = [self.head]
     self.direction = 'RIGHT'
-    self.snake_bools = [[False for i in range(width)] for j in range(height)]
-    self.food_bools = [[False for i in range(width)] for j in range(height)]
-    self.snake_bools[0][0] = True
-    self.food_bools[random.randint(0, self.height - 1)][random.randint(0, self.width - 1)] = True
+    self.snake_bools = np.array([[0 for i in range(width)] for j in range(height)])
+    self.food_bools = np.array([[0 for i in range(width)] for j in range(height)])
+    self.snake_bools[self.head[0]][self.head[1]] = True
+    self.food_bools[self.food[0]][self.food[1]] = 1
 
   def __str__(self):
     return (f'score: {len(self.snake_list)}\n\n' +
@@ -31,16 +36,24 @@ class GameState:
       for j in range(self.width)])
       for i in range(self.height)])) + '\n\n'
 
+  def rep(self):
+    return [''.join(
+      ['oo' if self.head[0] == i and self.head[1] == j else
+      '()' if self.snake_bools[i][j] else
+      '::' if self.food_bools[i][j] else '__'
+      for j in range(self.width)])
+      for i in range(self.height)] + [f'score: {len(self.snake_list)}', '']
+
 class Game:
-  def __init__(self, width, height):
+  def __init__(self):
+    self.state = None
     self.directions = {'RIGHT' : (0, 1),
                        'LEFT' : (0, -1),
                        'UP' : (-1, 0),
                        'DOWN' : (1, 0)}
 
+  def reset(self, width, height):
     self.state = GameState(width, height)
-    print('Game initialized')
-    # print(self.state)
 
   # return 0 for normal timestep, 1 if gameover, -1 for any error
   def timestep(self):
@@ -56,66 +69,69 @@ class Game:
     tail = (state.snake_list[-1])
     if m < 0 or m >= state.height or n < 0 or n >= state.width:
       # collision with wall
-      # be careful because now m and n are out of bounds
-      print('collided with wall!')
       return 1
+
     if state.food_bools[m][n]:
       # found food
-      state.food_bools[m][n] = False
+      state.food_bools[m][n] = 0
       more_food = True
+
     else:
       # didn't find food, end of tail disappears
-      state.snake_bools[tail[0]][tail[1]] = False
+      state.snake_bools[tail[0]][tail[1]] = 0
       state.snake_list.pop()
 
     if state.snake_bools[m][n]:
       # collision with self
-      print('collided with yourself!')
       return 1
+
     state.snake_list.insert(0, (m, n))
-    state.snake_bools[m][n] = True
+    state.snake_bools[m][n] = 1
     state.head = (m, n)
     if more_food:
-      ## fix this to just pick one of the empty spaces
+      # TODO: fix this to just pick one of the empty spaces
       while state.snake_bools[m][n]:
         m = random.randint(0, state.height - 1)
         n = random.randint(0, state.width - 1)
-      state.food_bools[m][n] = True
 
-  def play(self, agent):
-    # agent.stdscr.nodelay(1)
-    while (True):
-      # print(self.state)
-      agent.stdscr.addstr(0, 0, str(self.state))
-      agent.stdscr.addstr('q to quit\n')
-      # agent.stdscr.refresh()
+      state.food_bools[m][n] = 1
+      state.food = (m, n)
+
+  def play(self, agent, max_moves):
+
+    fullrun = ""
+
+    # agent.stdscr.addstr(25, 15, f'hmmmmmmmm')
+    # agent.stdscr.getch()
+
+    for move in range(max_moves):
+      if (agent.stdscr):
+        # agent.stdscr.getch()
+        # agent.stdscr.addstr(0, 0, str(self.state))
+        for i, line in enumerate(self.state.rep()):
+          agent.stdscr.addstr(i, 0, line)
+        agent.stdscr.addstr('q to quit\n')
+        agent.stdscr.refresh()
+        # agent.stdscr.getch()
+
+      if (agent.debugfile):
+        agent.debugfile.write(str(self.state))
+
+      fullrun += str(self.state)
+
       self.state.direction = agent.getNextMove(self.state)
-      if self.state.direction == 'QUIT': return 1
+      if self.state.direction == 'QUIT': break
       result = self.timestep()
       if result == -1: return -1
-      if result == 1: return 1
+      if result == 1: break
 
-    print(f'game over, you scored {len(self.state.snake_list)} points (length of snake)')
+    if (agent.stdscr):
+      agent.stdscr.addstr(f'game over, you scored {len(self.state.snake_list)} points!')
 
-class Agent:
-  # eventually there will be AI agents
-  def getNextMove(self, state):
-    pass
+    if (agent.debugfile):
+      agent.debugfile.write(f'game over, you scored {len(self.state.snake_list)} points!')
 
-class KeyboardAgent(Agent):
-  # that's you! arrow keys for movement, q to quit
-  def __init__(self, stdscr):
-    self.stdscr = stdscr
-
-  def getNextMove(self, state):
-    char = self.stdscr.getch()
-    next_move = state.direction
-    if char == 113: next_move = 'QUIT'
-    elif char == 454 or char == curses.KEY_RIGHT: next_move = 'RIGHT'
-    elif char == 452 or char == curses.KEY_LEFT:  next_move = 'LEFT'
-    elif char == 450 or char == curses.KEY_UP:    next_move = 'UP'
-    elif char == 456 or char == curses.KEY_DOWN:  next_move = 'DOWN'
-    return next_move
+    return (len(self.state.snake_list), fullrun)
 
 def main(stdscr):
   curses.curs_set(False)
@@ -124,10 +140,11 @@ def main(stdscr):
   char = stdscr.getch()
   while (True):
     stdscr.clear()
-    agent = KeyboardAgent(stdscr)
-    game = Game(10, 10)
-    game.play(agent)
-    stdscr.addstr(15, 0, 'game over, press any key to play again (q to quit)\n')
+    agent = KeyboardAgent(stdscr, None)
+    game = Game()
+    game.reset(10, 10)
+    game.play(agent, 999)
+    stdscr.addstr(15, 0, '\npress any key to play again (q to quit)\n')
     char = stdscr.getch()
     if char == 113: return 0
 
