@@ -18,7 +18,7 @@ width = 8
 height = 8
 max_moves = 20
 input_layer_size = width * height * 2
-population = 2000
+population = 200
 seed_size = int(population * 0.9)
 generations = 500
 topology = [input_layer_size, 10, 4]
@@ -59,8 +59,8 @@ def run(stdscr = None):
       stdscr.clear()
       stdscr.addstr(0, 2 * width + 1, f'generation {i}')
       # stdscr.getch()
-      # agent = NEAgent(snake, stdscr, outfile, debugfile)
-      agent = NEAgent(snake, None, outfile, None)
+      agent = NEAgent(snake, stdscr, outfile, debugfile)
+      # agent = NEAgent(snake, None, outfile, None)
       score, fullrun = game.play(agent, max_moves)
       scores.append(score)
       # print(f'{i}: {score}; ')
