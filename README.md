@@ -22,7 +22,7 @@ Will Zawilinski
 
 ### Terminal-based game
 
-1. Download or clone this repo
+1. Download or clone this repo (https://github.com/pmayol21/snAIk)
 
 2. If you are using Windows, install [windows-curses](https://pypi.org/project/windows-curses/):
 
