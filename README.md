@@ -60,3 +60,8 @@ Neural net written from scratch using numerical computing functions in the packa
 
 ## Genetic Algorithm
 The length of each snake at the time of death determines how "fit" it was. The fittest snake in each generations gets to "breed" with the other snakes, meaning its neural net is combined 50/50 with another and slightly mutated randomly to produce a snake in the next generation.
+
+
+## Our process/struggles
+We initially attempted to create out own game from scratch. After this failed, we then found a python game online which we modified to suit our needs. However, after our discusion during and after the demo on Friday, rewrote an entire snake game again, in order to get different inputs with the hope of allowing our neural network to have access to more inputs. This provided better results, however our results are still not ideal.
+We also experimented with the size of the neural network. We found that with a small network (1 internal layer with 4 nodes), the network was significantly limited in it's ability to learn. However, we also found that when we created significantly large networks, the outputs aproached 1, which is an undesireable result.
